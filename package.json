@@ -1,0 +1,39 @@
+{
+  "name": "vuex-multi-tab-state",
+  "version": "1.0.0",
+  "description": "Share and synchronize status between multiple tabs with this plugin for Vuex.",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gabrielmbmb/vuex-multi-tab-state.git"
+  },
+  "keywords": [
+    "vue",
+    "vuex",
+    "plugin"
+  ],
+  "author": "Gabriel Martin Blazquez",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/gabrielmbmb/vuex-multi-tab-state/issues"
+  },
+  "homepage": "https://github.com/gabrielmbmb/vuex-multi-tab-state#readme",
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^2.19.2",
+    "@typescript-eslint/parser": "^2.19.2",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-config-prettier": "^6.10.0",
+    "eslint-plugin-import": "^2.20.1",
+    "eslint-plugin-prettier": "^3.1.2",
+    "prettier": "^1.19.1",
+    "typescript": "^3.7.5",
+    "vue": "^2.6.11",
+    "vuex": "^3.1.2"
+  }
+}
