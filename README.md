@@ -15,7 +15,7 @@ This Vuex plugin allows you to sync and share the status of your Vue application
 
 vuex-multi-tab-state is available in npm and can be installed with the following command:
 
-    npm install --save vuex-multi-tab-state
+    npm i vuex-multi-tab-state
 
 ## Usage
 
@@ -47,9 +47,9 @@ You can check the example provided [here](https://github.com/gabrielmbmb/vuex-mu
 
 Creates a new instance of the plugin with the given options. The possible options are as follows:
 
-- `modules string[]`: contains the name of the states or modules to be synchronized.
+- `modules Array<string>`: contains the name of the states or modules to be synchronized. If the param is not provided, the whole state of your app will be sync. Defaults to `[]`.
 
-- `key string`: key of the storage in which the status will be stored.
+- `key <String>`: key of the storage in which the status will be stored. Defaults to `'vuex-multi-tab'`.
 
 ## Collaborate
 
