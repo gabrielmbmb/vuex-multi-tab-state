@@ -28,6 +28,10 @@ export default function(options?: Options) {
     return filteredState;
   }
 
+  if (!tab.storageAvailable()) {
+    throw new Error('Local storage is not available!');
+  }
+
   return (store: any) => {
     // First time, fetch state from local storage
     tab.fetchState(key, (state: object) => {
