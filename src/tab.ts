@@ -15,6 +15,17 @@ export default class Tab {
     this.window = window;
   }
 
+  storageAvailable(): Boolean {
+    const test = 'vuex-multi-tab-state-test';
+    try {
+      this.window.localStorage.setItem(test, test);
+      this.window.localStorage.removeItem(test);
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
   saveState(key: string, state: object) {
     const toSave = JSON.stringify({
       id: this.tabId,
@@ -29,22 +40,32 @@ export default class Tab {
     const value = this.window.localStorage.getItem(key);
 
     if (value) {
-      const parsed = JSON.parse(value);
-      cb(parsed.state);
+      try {
+        const parsed = JSON.parse(value);
+        cb(parsed.state);
+      } catch (e) {
+        console.warn(`State saved in localStorage with key ${key} is invalid!`);
+      }
     }
   }
 
-  addEventListener(cb: Function) {
+  addEventListener(key: string, cb: Function) {
     return this.window.addEventListener('storage', (event: StorageEvent) => {
-      if (!event.newValue) {
+      if (!event.newValue || event.key !== key) {
         return;
       }
 
-      const newState = JSON.parse(event.newValue);
+      try {
+        const newState = JSON.parse(event.newValue);
 
-      // Check if the new state is from another tab
-      if (newState.id !== this.tabId) {
-        cb(newState.state);
+        // Check if the new state is from another tab
+        if (newState.id !== this.tabId) {
+          cb(newState.state);
+        }
+      } catch (e) {
+        console.warn(
+          `New state saved in localStorage with key ${key} is invalid`
+        );
       }
     });
   }

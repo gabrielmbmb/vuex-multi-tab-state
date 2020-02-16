@@ -40,7 +40,7 @@ export default function(options?: Options) {
     });
 
     // Add event listener to the state saved in local storage
-    tab.addEventListener((state: object) => {
+    tab.addEventListener(key, (state: object) => {
       const mergedState = merge(store.state, state);
       store.replaceState(mergedState);
     });
