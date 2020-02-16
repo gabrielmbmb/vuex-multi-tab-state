@@ -15,28 +15,37 @@ export default class Tab {
     this.window = window;
   }
 
-  saveState(key: string, state: any) {
+  saveState(key: string, state: object) {
     const toSave = JSON.stringify({
       id: this.tabId,
       state,
     });
 
-    // save the state
+    // Save the state in local storage
     this.window.localStorage.setItem(key, toSave);
+  }
+
+  fetchState(key: string, cb: Function) {
+    const value = this.window.localStorage.getItem(key);
+
+    if (value) {
+      const parsed = JSON.parse(value);
+      cb(parsed.state);
+    }
   }
 
   addEventListener(cb: Function) {
     return this.window.addEventListener('storage', (event: StorageEvent) => {
-      let newState!: any;
       if (!event.newValue) {
-        newState = JSON.parse(event.newValue!);
+        return;
       }
 
-      if (newState.id === this.tabId) {
-        console.log('this is my state');
-      }
+      const newState = JSON.parse(event.newValue);
 
-      cb(newState.state);
+      // Check if the new state is from another tab
+      if (newState.id !== this.tabId) {
+        cb(newState.state);
+      }
     });
   }
 }

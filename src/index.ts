@@ -1,22 +1,56 @@
+import merge from 'lodash.merge';
 import Tab from './tab';
-import { Options } from './types';
 
-export default function(options: Options) {
+export interface Options {
+  modules?: string[];
+  key?: string;
+}
+
+export default function(options?: Options) {
   const tab = new Tab(window);
+  let key: string = 'vuex-multi-tab';
+  let modules: string[] = [];
 
-  console.log(options);
+  if (options) {
+    key = options.key ? options.key : key;
+    modules = options.modules ? options.modules : modules;
+  }
 
-  return (store: any) => {
-    // Add event listener to the state
-    tab.addEventListener((state: object) => {
-      store.replaceState(state);
+  function filterModules(state: { [key: string]: any }): object {
+    const filteredState: { [key: string]: any } = {};
+
+    Object.keys(state).forEach(k => {
+      if (modules.indexOf(k) !== -1) {
+        filteredState[k] = state[k];
+      }
     });
 
-    store.subscribe((mutation: MutationEvent, state: any) => {
-      console.log(mutation);
+    return filteredState;
+  }
+
+  return (store: any) => {
+    // First time, fetch state from local storage
+    tab.fetchState(key, (state: object) => {
+      const mergedState = merge(store.state, state);
+      store.replaceState(mergedState);
+    });
+
+    // Add event listener to the state saved in local storage
+    tab.addEventListener((state: object) => {
+      const mergedState = merge(store.state, state);
+      store.replaceState(mergedState);
+    });
+
+    store.subscribe((mutation: MutationEvent, state: object) => {
+      let toSave = state;
+
+      // Filter state
+      if (modules.length > 0) {
+        toSave = filterModules(state);
+      }
 
       // Save state in local storage
-      tab.saveState('vuex', state);
+      tab.saveState(key, toSave);
     });
   };
 }
