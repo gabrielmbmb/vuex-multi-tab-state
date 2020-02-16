@@ -5,12 +5,16 @@
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "files": [
-    "/lib"
+    "/lib/**/*"
   ],
   "scripts": {
     "build": "tsc",
-    "prepublish": "tsc",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "prepare": "npm run build",
+    "prepublishOnly": "npm test && npm run lint",
+    "preversion": "npm run lint",
+    "test": "npm run build && ./node_modules/mocha/bin/mocha -r @babel/register -r jsdom-global/register -r mock-local-storage",
+    "lint": "tsc --noEmit && eslint 'src/**/*' --quiet --fix",
+    "format": "prettier --write \"src/**/*\""
   },
   "repository": {
     "type": "git",
@@ -28,13 +32,24 @@
   },
   "homepage": "https://github.com/gabrielmbmb/vuex-multi-tab-state#readme",
   "devDependencies": {
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.8.4",
+    "@babel/node": "^7.8.4",
+    "@babel/preset-env": "^7.8.4",
+    "@babel/register": "^7.8.3",
     "@typescript-eslint/eslint-plugin": "^2.19.2",
     "@typescript-eslint/parser": "^2.19.2",
+    "chai": "^4.2.0",
+    "chai-spies": "^1.0.0",
     "eslint": "^6.8.0",
     "eslint-config-airbnb-base": "^14.0.0",
     "eslint-config-prettier": "^6.10.0",
     "eslint-plugin-import": "^2.20.1",
     "eslint-plugin-prettier": "^3.1.2",
+    "jsdom": "^16.1.0",
+    "jsdom-global": "^3.0.2",
+    "mocha": "^7.0.1",
+    "mock-local-storage": "^1.1.11",
     "prettier": "^1.19.1",
     "typescript": "^3.7.5",
     "vue": "^2.6.11",
