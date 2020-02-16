@@ -13,7 +13,11 @@
     "prepublishOnly": "npm test && npm run lint",
     "preversion": "npm run lint",
     "test": "npm run build && nyc --reporter=html --reporter=text ./node_modules/mocha/bin/mocha --report lcovonly -r @babel/register -r jsdom-global/register -r mock-local-storage",
+<<<<<<< HEAD
     "coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov",
+=======
+    "coverage": "nyc report --reporter=text-lcov | codecov",
+>>>>>>> 5c368b469370ef2de30be18ba80e70fe4184d45e
     "lint": "tsc --noEmit && eslint 'src/**/*' --quiet --fix",
     "format": "prettier --write \"src/**/*\""
   },
