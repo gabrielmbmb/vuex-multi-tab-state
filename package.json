@@ -12,8 +12,8 @@
     "prepare": "npm run build",
     "prepublishOnly": "npm test && npm run lint",
     "preversion": "npm run lint",
-    "test": "npm run build && nyc ./node_modules/mocha/bin/mocha -r @babel/register -r jsdom-global/register -r mock-local-storage",
-    "coverage": "codecov",
+    "test": "npm run build && nyc --reporter=html --reporter=text ./node_modules/mocha/bin/mocha --report lcovonly -r @babel/register -r jsdom-global/register -r mock-local-storage",
+    "coverage": "nyc report --reporter=text-lcov | codecov",
     "lint": "tsc --noEmit && eslint 'src/**/*' --quiet --fix",
     "format": "prettier --write \"src/**/*\""
   },
