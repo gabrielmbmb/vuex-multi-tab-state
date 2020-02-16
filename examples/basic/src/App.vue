@@ -25,6 +25,12 @@
       <p>🐺: {{ $store.state.animals.wolfs }}</p>
       <button @click="$store.dispatch('commitAddWolf')">Add wolf</button>
     </div>
+
+    <!-- Random -->
+    <div>
+      <p>Counter: {{ $store.state.counter }}</p>
+      <button @click="$store.commit('increment')">Increment</button>
+    </div>
   </div>
 </template>
 

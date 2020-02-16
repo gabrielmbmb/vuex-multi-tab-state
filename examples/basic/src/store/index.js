@@ -68,10 +68,18 @@ const animals = {
 };
 
 export default new Vuex.Store({
+  state: {
+    counter: 0,
+  },
+  mutations: {
+    increment(state) {
+      state.counter += 1;
+    },
+  },
   modules: { fruits, animals },
   plugins: [
     createMultiTabState({
-      modules: ['fruits'],
+      modules: ['fruits', 'counter'],
     }),
   ],
 });
