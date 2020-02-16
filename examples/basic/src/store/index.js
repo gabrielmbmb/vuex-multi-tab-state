@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import something from '../../../../dist/index';
+import createMultiTabState from 'vuex-multi-tab-state';
 
 Vue.use(Vuex);
 
@@ -36,10 +36,41 @@ const fruits = {
   },
 };
 
+const animals = {
+  state: {
+    penguins: 0,
+    wolfs: 0,
+  },
+  mutations: {
+    addPenguin(state) {
+      state.penguins += 1;
+    },
+    addWolf(state) {
+      state.wolfs += 1;
+    },
+  },
+  actions: {
+    commitAddPenguin({ commit }) {
+      commit('addPenguin');
+    },
+    commitAddWolf({ commit }) {
+      commit('addWolf');
+    },
+  },
+  getters: {
+    getPenguins(state) {
+      return state.penguins;
+    },
+    getWolfs(state) {
+      return state.wolfs;
+    },
+  },
+};
+
 export default new Vuex.Store({
-  modules: { fruits },
+  modules: { fruits, animals },
   plugins: [
-    something({
+    createMultiTabState({
       modules: ['fruits'],
     }),
   ],
