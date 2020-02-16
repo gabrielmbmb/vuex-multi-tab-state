@@ -1,12 +1,12 @@
 # vuex-multi-tab-state
 
-![Travis (.org)](https://img.shields.io/travis/gabrielmbmb/vuex-multi-tab-state)
-![npm](https://img.shields.io/npm/v/vuex-multi-tab-state)
-![npm](https://img.shields.io/npm/dm/vuex-multi-tab-state)
-![npm bundle size](https://img.shields.io/bundlephobia/min/vuex-multi-tab-state)
-![npm type definitions](https://img.shields.io/npm/types/vuex-multi-tab-state)
-![NPM](https://img.shields.io/npm/l/vuex-multi-tab-state)
-
+[![Travis (.org)](https://img.shields.io/travis/gabrielmbmb/vuex-multi-tab-state)](https://travis-ci.com/gabrielmbmb/vuex-multi-tab-state)
+[![npm](https://img.shields.io/npm/v/vuex-multi-tab-state)](https://www.npmjs.com/package/vuex-multi-tab-state)
+[![codecov](https://codecov.io/gh/gabrielmbmb/vuex-multi-tab-state/branch/master/graph/badge.svg)](https://codecov.io/gh/gabrielmbmb/vuex-multi-tab-state)
+[![npm](https://img.shields.io/npm/dm/vuex-multi-tab-state)](https://www.npmjs.com/package/vuex-multi-tab-state)
+[![npm bundle size](https://img.shields.io/bundlephobia/min/vuex-multi-tab-state)](https://www.npmjs.com/package/vuex-multi-tab-state)
+[![npm type definitions](https://img.shields.io/npm/types/vuex-multi-tab-state)](https://www.npmjs.com/package/vuex-multi-tab-state)
+[![NPM](https://img.shields.io/npm/l/vuex-multi-tab-state)](https://github.com/gabrielmbmb/vuex-multi-tab-state/blob/master/LICENSE)
 ![demo](https://raw.githubusercontent.com/gabrielmbmb/vuex-multi-tab-state/master/.github/demo.gif?token=AHBT6NTORAZEFGKQRZ3IC4C6KHJA6)
 
 This Vuex plugin allows you to sync and share the status of your Vue application across multiple tabs or windows using the local storage.
