@@ -12,7 +12,7 @@
     "prepare": "npm run build",
     "prepublishOnly": "npm test && npm run lint",
     "preversion": "npm run lint",
-    "test": "npm run build && nyc --reporter=html --reporter=text ./node_modules/mocha/bin/mocha --report lcovonly -r @babel/register -r jsdom-global/register -r mock-local-storage",
+    "test": "nyc ./node_modules/mocha/bin/mocha",
     "coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov",
     "lint": "tsc --noEmit && eslint 'src/**/*' --quiet --fix",
     "format": "prettier --write \"src/**/*\""
@@ -26,7 +26,7 @@
     "vuex",
     "plugin"
   ],
-  "author": "Gabriel Martin Blazquez",
+  "author": "Gabriel Martin Blazquez <gmartinbdev@gmail.com>",
   "license": "GPL-3.0",
   "bugs": {
     "url": "https://github.com/gabrielmbmb/vuex-multi-tab-state/issues"
@@ -38,6 +38,9 @@
     "@babel/node": "^7.8.4",
     "@babel/preset-env": "^7.8.4",
     "@babel/register": "^7.8.3",
+    "@types/chai": "^4.2.9",
+    "@types/chai-spies": "^1.0.1",
+    "@types/mocha": "^7.0.1",
     "@typescript-eslint/eslint-plugin": "^2.19.2",
     "@typescript-eslint/parser": "^2.19.2",
     "chai": "^4.2.0",
@@ -54,6 +57,7 @@
     "mock-local-storage": "^1.1.11",
     "nyc": "^15.0.0",
     "prettier": "^1.19.1",
+    "ts-node": "^8.6.2",
     "typescript": "^3.7.5",
     "vue": "^2.6.11",
     "vuex": "^3.1.2"

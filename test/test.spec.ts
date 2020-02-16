@@ -2,7 +2,7 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import chai, { expect } from 'chai';
 import spies from 'chai-spies';
-import createMultiTabState from '../lib/index';
+import createMultiTabState from '../src/index';
 
 chai.use(spies);
 
