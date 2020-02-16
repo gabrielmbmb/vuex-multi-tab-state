@@ -105,3 +105,6 @@ dist
 
 # Build
 lib/
+
+# Demo image
+.github/demo.gif
