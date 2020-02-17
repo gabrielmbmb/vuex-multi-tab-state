@@ -59,7 +59,9 @@ Creates a new instance of the plugin with the given options. The possible option
         apples: 0,
       },
     },
-    plugins: [createMultiTabState(['fruits.oranges'])],
+    plugins: [createMultiTabState({
+      statesPaths: ['fruits.orange'],
+    })],
   });
   ```
 
