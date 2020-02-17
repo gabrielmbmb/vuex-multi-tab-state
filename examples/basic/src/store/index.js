@@ -79,7 +79,7 @@ export default new Vuex.Store({
   modules: { fruits, animals },
   plugins: [
     createMultiTabState({
-      modules: ['fruits', 'counter'],
+      statesPaths: ['fruits.oranges', 'animals.penguins', 'counter'],
     }),
   ],
 });
