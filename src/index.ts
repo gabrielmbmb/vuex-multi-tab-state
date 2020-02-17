@@ -2,30 +2,45 @@ import merge from 'lodash.merge';
 import Tab from './tab';
 
 export interface Options {
-  modules?: string[];
+  statesPaths?: string[];
   key?: string;
 }
 
 export default function(options?: Options) {
   const tab = new Tab(window);
   let key: string = 'vuex-multi-tab';
-  let modules: string[] = [];
+  let statesPaths: string[] = [];
 
   if (options) {
     key = options.key ? options.key : key;
-    modules = options.modules ? options.modules : modules;
+    statesPaths = options.statesPaths ? options.statesPaths : statesPaths;
   }
 
-  function filterModules(state: { [key: string]: any }): object {
-    const filteredState: { [key: string]: any } = {};
+  function filterStates(
+    paths: string[],
+    state: { [key: string]: any }
+  ): { [key: string]: any } {
+    let result = {};
+    paths.forEach(path => {
+      const subPaths = path.split('.');
+      let object: { [key: string]: any } = {};
+      const branch = object;
 
-    Object.keys(state).forEach(k => {
-      if (modules.indexOf(k) !== -1) {
-        filteredState[k] = state[k];
+      const value = subPaths.reduce((current, subPath) => {
+        return current[subPath];
+      }, state);
+
+      for (let i = 0; i < subPaths.length - 1; i += 1) {
+        object[subPaths[i]] = {};
+        object = object[subPaths[i]];
       }
+
+      object[subPaths[subPaths.length - 1]] = value;
+
+      result = merge(result, branch);
     });
 
-    return filteredState;
+    return result;
   }
 
   if (!tab.storageAvailable()) {
@@ -49,8 +64,8 @@ export default function(options?: Options) {
       let toSave = state;
 
       // Filter state
-      if (modules.length > 0) {
-        toSave = filterModules(state);
+      if (statesPaths.length > 0) {
+        toSave = filterStates(statesPaths, state);
       }
 
       // Save state in local storage
