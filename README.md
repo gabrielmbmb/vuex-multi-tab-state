@@ -49,7 +49,7 @@ Creates a new instance of the plugin with the given options. The possible option
 
 - `statesPaths Array<String>`: contains the name of the states to be synchronized with dot notation. If the param is not provided, the whole state of your app will be sync. Defaults to `[]`.
 
-  > Example: the oranges will be only sync.
+  > Example: Only the oranges will be synchronized.
 
   ```javascript
   export default new Vuex.Store({
@@ -60,7 +60,7 @@ Creates a new instance of the plugin with the given options. The possible option
       },
     },
     plugins: [createMultiTabState({
-      statesPaths: ['fruits.orange'],
+      statesPaths: ['fruits.oranges'],
     })],
   });
   ```
