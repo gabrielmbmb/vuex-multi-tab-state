@@ -3,6 +3,7 @@
 [![Build Status](https://travis-ci.com/gabrielmbmb/vuex-multi-tab-state.svg?branch=master)](https://travis-ci.com/gabrielmbmb/vuex-multi-tab-state)
 [![npm](https://img.shields.io/npm/v/vuex-multi-tab-state)](https://www.npmjs.com/package/vuex-multi-tab-state)
 [![codecov](https://codecov.io/gh/gabrielmbmb/vuex-multi-tab-state/branch/master/graph/badge.svg)](https://codecov.io/gh/gabrielmbmb/vuex-multi-tab-state)
+[![codebeat badge](https://codebeat.co/badges/9c5328f7-a70e-412a-a68a-ce67668bfc0d)](https://codebeat.co/projects/github-com-gabrielmbmb-vuex-multi-tab-state-master)
 [![npm](https://img.shields.io/npm/dm/vuex-multi-tab-state)](https://www.npmjs.com/package/vuex-multi-tab-state)
 [![npm bundle size](https://img.shields.io/bundlephobia/min/vuex-multi-tab-state)](https://www.npmjs.com/package/vuex-multi-tab-state)
 [![npm type definitions](https://img.shields.io/npm/types/vuex-multi-tab-state)](https://www.npmjs.com/package/vuex-multi-tab-state)
