@@ -51,6 +51,10 @@ export default function(options?: Options) {
     }
   }
 
+  function mergeState(oldState: object, newState: object) {
+    return _.mergeWith(oldState, newState, mergeCustomizer);
+  }
+
   if (!tab.storageAvailable()) {
     throw new Error('Local storage is not available!');
   }
@@ -58,14 +62,13 @@ export default function(options?: Options) {
   return (store: any) => {
     // First time, fetch state from local storage
     tab.fetchState(key, (state: object) => {
-      const mergedState = _.mergeWith(store.state, state, mergeCustomizer);
-      store.replaceState(mergedState);
+      // const mergedState = _.mergeWith(store.state, state, mergeCustomizer);
+      store.replaceState(mergeState(store.state, state));
     });
 
     // Add event listener to the state saved in local storage
     tab.addEventListener(key, (state: object) => {
-      const mergedState = _.mergeWith(store.state, state, mergeCustomizer);
-      store.replaceState(mergedState);
+      store.replaceState(mergeState(store.state, state));
     });
 
     store.subscribe((mutation: MutationEvent, state: object) => {
