@@ -7,7 +7,7 @@
 [![npm](https://img.shields.io/npm/dm/vuex-multi-tab-state)](https://www.npmjs.com/package/vuex-multi-tab-state)
 [![npm bundle size](https://img.shields.io/bundlephobia/min/vuex-multi-tab-state)](https://www.npmjs.com/package/vuex-multi-tab-state)
 [![npm type definitions](https://img.shields.io/npm/types/vuex-multi-tab-state)](https://www.npmjs.com/package/vuex-multi-tab-state)
-[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
+[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
 ![demo](https://raw.githubusercontent.com/gabrielmbmb/vuex-multi-tab-state/master/.github/demo.gif?token=AHBT6NTORAZEFGKQRZ3IC4C6KHJA6)
 
 This Vuex plugin allows you to sync and share the status of your Vue application across multiple tabs or windows using the local storage.
@@ -67,6 +67,13 @@ Creates a new instance of the plugin with the given options. The possible option
   ```
 
 - `key <String>`: key of the storage in which the status will be stored. Defaults to `'vuex-multi-tab'`.
+
+## Test
+
+The test have been written with [mocha](https://github.com/mochajs/mocha) and [chai](https://github.com/chaijs/chai).
+
+    npm install
+    npm run test
 
 ## Collaborate
 

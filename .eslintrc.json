@@ -1,7 +1,8 @@
 {
   "env": {
     "browser": true,
-    "es6": true
+    "es6": true,
+    "mocha": true
   },
   "extends": ["airbnb-base", "prettier"],
   "globals": {
@@ -23,7 +24,15 @@
         "ts": "never"
       }
     ],
-    "import/no-extraneous-dependencies": ["error", { "devDependencies": true }]
+    "import/no-extraneous-dependencies": ["error", { "devDependencies": true }],
+    "no-param-reassign": [
+      "error",
+      {
+        "ignorePropertyModificationsFor": [
+          "state"
+        ]
+      }
+    ]
   },
   "settings": {
     "import/resolver": {
