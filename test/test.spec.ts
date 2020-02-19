@@ -13,6 +13,8 @@ Vue.use(Vuex);
 Vue.config.productionTip = false;
 
 describe('vuex-multi-tab-state basic tests', () => {
+  const warnSpy = chai.spy.on(console, 'warn');
+
   afterEach(() => {
     if (window.localStorage !== null) {
       window.localStorage.clear();
@@ -87,27 +89,25 @@ describe('vuex-multi-tab-state basic tests', () => {
       state: { random: 0 },
       plugins: [createMultiTabState()],
     });
-    const spy = chai.spy.on(console, 'warn');
-    expect(spy).to.have.been.called;
+    expect(warnSpy).to.have.been.called;
   });
 
-  // it('should fetch state when it has been changed', () => {
-  //   const testState = { id: 'randomIdHere', state: { random: 6 } };
-  //   window.localStorage.setItem('vuex-multi-tab', JSON.stringify(testState));
+  it('should not fetch state from local storage if event newValue property is undefined', () => {
+    const testState = { id: 'randomIdHere', state: { random: 6 } };
+    window.localStorage.setItem('vuex-multi-tab', JSON.stringify(testState));
 
-  //   const store = new Vuex.Store({ state: { random: 0 } });
-  //   const plugin = createMultiTabState();
-  //   const spy = chai.spy.on(store, 'replaceState');
+    const store = new Vuex.Store({
+      state: { random: 0 },
+      plugins: [createMultiTabState()],
+    });
+    const spy = chai.spy.on(store, 'replaceState');
 
-  //   plugin(store);
+    const event = new CustomEvent('storage');
+    window.dispatchEvent(event);
 
-  //   testState.state.random = 10;
-  //   window.localStorage.setItem('vuex-multi-tab', JSON.stringify(testState));
+    expect(spy).to.not.have.been.called.twice;
+  });
 
-  //   window.dispatchEvent(new Event('storage'));
-
-  //   // expect(spy).to.have.been.called.twice;
-  // });
   it('should save state in local storage when new state is set', () => {
     const store = new Vuex.Store({
       state: { random: 0 },
@@ -129,6 +129,51 @@ describe('vuex-multi-tab-state basic tests', () => {
       const parsedStateInLs = JSON.parse(stateInLs);
       expect(parsedStateInLs.state.random).to.be.eq(1);
     }
+  });
+
+  it('should fetch state when it has been changed', () => {
+    Object.defineProperty(window, 'addEventListener', {
+      value: (type: string, fn: Function) => {
+        fn({
+          key: 'vuex-multi-tab',
+          newValue: JSON.stringify({
+            id: 'randomIdHere',
+            state: {
+              random: 8,
+            },
+          }),
+        });
+      },
+    });
+
+    const testState = { id: 'randomIdHere', state: { random: 6 } };
+    window.localStorage.setItem('vuex-multi-tab', JSON.stringify(testState));
+
+    const store = new Vuex.Store({
+      state: { random: 0 },
+      plugins: [createMultiTabState()],
+    });
+
+    expect(store.state.random).to.be.eq(8);
+  });
+
+  it('should warn the user if the new state in local storage is invalid', () => {
+    Object.defineProperty(window, 'addEventListener', {
+      value: (type: string, fn: Function) => {
+        fn({
+          key: 'vuex-multi-tab',
+          newValue: '<unparseable to json>',
+        });
+      },
+    });
+
+    // eslint-disable-next-line no-unused-vars
+    const store = new Vuex.Store({
+      state: { random: 0 },
+      plugins: [createMultiTabState()],
+    });
+
+    expect(warnSpy).to.have.been.called;
   });
 
   it('should throw if local storage is not available', () => {
