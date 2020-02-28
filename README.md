@@ -85,4 +85,4 @@ If you feel that something can be improved, go on, create a pull request! Please
 
 [![NPM](https://img.shields.io/npm/l/vuex-multi-tab-state)](https://github.com/gabrielmbmb/vuex-multi-tab-state/blob/master/LICENSE)
 
-This project uses the GPL v3 license. More information [here](https://github.com/gabrielmbmb/vuex-multi-tab-state/blob/master/LICENSE).
+This project is under the MIT license. More information [here](https://github.com/gabrielmbmb/vuex-multi-tab-state/blob/master/LICENSE).
