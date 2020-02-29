@@ -44,7 +44,7 @@ You can check the example provided [here](https://github.com/gabrielmbmb/vuex-mu
 
 ## API
 
-### `createMultiTabState([options])`
+### `createMultiTabState({options})`
 
 Creates a new instance of the plugin with the given options. The possible options are as follows:
 
@@ -66,7 +66,7 @@ Creates a new instance of the plugin with the given options. The possible option
   });
   ```
 
-- `key <String>`: key of the storage in which the status will be stored. Defaults to `'vuex-multi-tab'`.
+- `key <String>`: key of the local storage in which the state will be stored. Defaults to `'vuex-multi-tab'`.
 
 ## Test
 
