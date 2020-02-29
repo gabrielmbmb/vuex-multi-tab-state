@@ -1,4 +1,6 @@
-import _ from 'lodash';
+import merge from 'lodash.merge';
+import mergeWith from 'lodash.mergewith';
+import isArray from 'lodash.isarray';
 import Tab from './tab';
 
 export interface Options {
@@ -37,7 +39,7 @@ export default function(options?: Options) {
 
       object[subPaths[subPaths.length - 1]] = value;
 
-      result = _.merge(result, branch);
+      result = merge(result, branch);
     });
 
     return result;
@@ -46,13 +48,13 @@ export default function(options?: Options) {
   // eslint-disable-next-line consistent-return
   function mergeCustomizer(objValue: any, srcValue: any) {
     // If merging array, return the new array
-    if (_.isArray(objValue)) {
+    if (isArray(objValue)) {
       return srcValue;
     }
   }
 
   function mergeState(oldState: object, newState: object) {
-    return _.mergeWith(oldState, newState, mergeCustomizer);
+    return mergeWith(oldState, newState, mergeCustomizer);
   }
 
   if (!tab.storageAvailable()) {
@@ -62,7 +64,6 @@ export default function(options?: Options) {
   return (store: any) => {
     // First time, fetch state from local storage
     tab.fetchState(key, (state: object) => {
-      // const mergedState = _.mergeWith(store.state, state, mergeCustomizer);
       store.replaceState(mergeState(store.state, state));
     });
 
