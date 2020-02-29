@@ -1,6 +1,5 @@
 import merge from 'lodash.merge';
 import mergeWith from 'lodash.mergewith';
-import isArray from 'lodash.isarray';
 import Tab from './tab';
 
 export interface Options {
@@ -48,7 +47,7 @@ export default function(options?: Options) {
   // eslint-disable-next-line consistent-return
   function mergeCustomizer(objValue: any, srcValue: any) {
     // If merging array, return the new array
-    if (isArray(objValue)) {
+    if (Array.isArray(objValue)) {
       return srcValue;
     }
   }
