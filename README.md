@@ -12,6 +12,10 @@
 
 This Vuex plugin allows you to sync and share the status of your Vue application across multiple tabs or windows using the local storage.
 
+**This repository has a gitter chat where you can ask questions and propose new features:**
+
+[![Gitter](https://badges.gitter.im/vuex-multi-tab-state/community.svg)](https://gitter.im/vuex-multi-tab-state/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+
 ## Installation
 
 vuex-multi-tab-state is available in npm and can be installed with the following command:
