@@ -11,7 +11,7 @@
     "core-js": "^3.6.4",
     "vue": "^2.6.11",
     "vuex": "^3.1.2",
-    "vuex-multi-tab-state": "^1.0.7"
+    "vuex-multi-tab-state": "^1.0.12"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^4.2.0",
