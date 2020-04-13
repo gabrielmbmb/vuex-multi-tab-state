@@ -53,7 +53,7 @@ export default function(options?: Options) {
   }
 
   function mergeState(oldState: object, newState: object) {
-    return mergeWith(oldState, newState, mergeCustomizer);
+    return mergeWith({}, oldState, newState, mergeCustomizer);
   }
 
   if (!tab.storageAvailable()) {
