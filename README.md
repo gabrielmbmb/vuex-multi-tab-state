@@ -46,6 +46,43 @@ export default new Vuex.Store({
 
 You can check the example provided [here](https://github.com/gabrielmbmb/vuex-multi-tab-state/tree/master/examples/basic)
 
+## NuxtJS
+
+Integrating the plugin in NuxtJS requires a little more effort than in Vue. First of all, we have to create a file inside the `plugins` directory.
+
+```javascript
+// ~/plugins/multiTabState.client.js
+import createMultiTabState from 'vuex-multi-tab-state';
+
+export default ({ store }) => {
+  createMultiTabState()(store);
+};
+```
+
+Note that the file name must have the following format `*.client.js`. The next step is to add this plugin to NuxtJS in `nuxt.config.js`:
+
+```javascript
+// nuxt.config.js
+export default {
+  ...
+  plugins: [{ src: '~/plugins/multiTabState.client.js' }],
+  ...
+}
+```
+
+If you didn't named the file following the format specified you can add this plugin this way:
+
+```javascript
+// nuxt.config.js
+export default {
+  ...
+  plugins: [{ src: '~/plugins/multiTabState.client.js', mode: 'client' }],
+  ...
+}
+```
+
+Both ways tell NuxtJS that the plugin should only be run on the client side (because the plugins uses window which is not available in server side).
+
 ## API
 
 ### `createMultiTabState({options})`
