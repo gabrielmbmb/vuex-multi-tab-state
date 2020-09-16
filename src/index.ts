@@ -1,5 +1,3 @@
-import merge from 'lodash.merge';
-// import mergeWith from 'lodash.mergewith';
 import _get from 'lodash.get';
 import _set from 'lodash.set';
 import _unset from 'lodash.unset';
@@ -41,22 +39,13 @@ export default function(options?: Options) {
 
       object[subPaths[subPaths.length - 1]] = value;
 
-      result = merge(result, branch);
+      result = { ...result, ...branch };
     });
 
     return result;
   }
 
-  // eslint-disable-next-line consistent-return
-  // function mergeCustomizer(objValue: any, srcValue: any) {
-  //   // If merging array, return the new array
-  //   if (Array.isArray(objValue)) {
-  //     return srcValue;
-  //   }
-  // }
-
   function mergeState(oldState: object, newState: object) {
-    // return mergeWith({}, oldState, newState, mergeCustomizer);
     if (statesPaths.length === 0) return { ...newState };
     let merged = { ...oldState };
     for (const statePath of statesPaths) {
