@@ -53,7 +53,8 @@ export default function(options?: Options) {
     // and replace only specified paths
     for (const statePath of statesPaths) {
       const newValue = _get(newState, statePath);
-      if (!newValue) _unset(merged, statePath);
+      // remove value if it doesn't exist, overwrite otherwise
+      if (typeof newValue === 'undefined') _unset(merged, statePath);
       else _set(merged, statePath, newValue);
     }
     return merged;
