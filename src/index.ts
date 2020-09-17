@@ -50,6 +50,7 @@ export default function(options?: Options) {
     let merged = { ...oldState };
     for (const statePath of statesPaths) {
       const newValue = _get(newState, statePath);
+      console.log(newValue);
       if (!newValue) _unset(merged, statePath);
       else _set(merged, statePath, newValue);
     }
