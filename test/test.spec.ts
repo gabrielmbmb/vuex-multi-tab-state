@@ -102,7 +102,7 @@ describe('vuex-multi-tab-state basic tests', () => {
     expect(store.state.random).to.be.eql({ bar2: 'foo2' });
   });
 
-  it('should merge objects from specified states correctly', () => {
+  it('should merge objects only from specified paths', () => {
     const store = new Vuex.Store({
       state: { random: { bar1: 'foo1', bar2: 'foo1', bar3: 'foo1' } },
     });

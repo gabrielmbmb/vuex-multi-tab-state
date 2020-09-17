@@ -46,11 +46,13 @@ export default function(options?: Options) {
   }
 
   function mergeState(oldState: object, newState: object) {
+    // if whole state is to be replaced then do just that
     if (statesPaths.length === 0) return { ...newState };
+    // else take old state
     let merged = { ...oldState };
+    // and replace only specified paths
     for (const statePath of statesPaths) {
       const newValue = _get(newState, statePath);
-      console.log(newValue);
       if (!newValue) _unset(merged, statePath);
       else _set(merged, statePath, newValue);
     }
