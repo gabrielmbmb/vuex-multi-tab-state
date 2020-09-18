@@ -82,6 +82,72 @@ describe('vuex-multi-tab-state basic tests', () => {
     expect(store.state.random).to.be.eql(['bar']);
   });
 
+  it('should merge objects correctly', () => {
+    const store = new Vuex.Store({
+      state: { random: { bar1: 'foo1', bar2: 'foo1' } },
+    });
+    const plugin = createMultiTabState();
+
+    window.localStorage.setItem(
+      'vuex-multi-tab',
+      JSON.stringify({
+        id: 'randomIdHere',
+        state: {
+          random: { bar2: 'foo2' },
+        },
+      })
+    );
+
+    plugin(store);
+    expect(store.state.random).to.be.eql({ bar2: 'foo2' });
+  });
+
+  it('should merge objects only from specified paths', () => {
+    const store = new Vuex.Store({
+      state: { random: { bar1: 'foo1', bar2: 'foo1', bar3: 'foo1' } },
+    });
+    const plugin = createMultiTabState({
+      statesPaths: ['random.bar2', 'random.bar3'],
+    });
+
+    window.localStorage.setItem(
+      'vuex-multi-tab',
+      JSON.stringify({
+        id: 'randomIdHere',
+        state: {
+          random: { bar2: 'foo2' },
+        },
+      })
+    );
+
+    plugin(store);
+    expect(store.state.random).to.be.eql({ bar1: 'foo1', bar2: 'foo2' });
+  });
+
+  it('should properly merge falsy values', () => {
+    const store = new Vuex.Store({
+      state: {
+        random: { bar1: 0, bar2: true },
+      },
+    });
+    const plugin = createMultiTabState({
+      statesPaths: ['random.bar1', 'random.bar2'],
+    });
+
+    window.localStorage.setItem(
+      'vuex-multi-tab',
+      JSON.stringify({
+        id: 'randomIdHere',
+        state: {
+          random: { bar1: 0, bar2: false },
+        },
+      })
+    );
+
+    plugin(store);
+    expect(store.state.random).to.be.eql({ bar1: 0, bar2: false });
+  });
+
   it('should warn the user if the state in local storage is invalid', () => {
     window.localStorage.setItem('vuex-multi-tab', '<unparseable to json>');
     // eslint-disable-next-line no-unused-vars
