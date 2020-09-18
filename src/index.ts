@@ -49,14 +49,14 @@ export default function(options?: Options) {
     // if whole state is to be replaced then do just that
     if (statesPaths.length === 0) return { ...newState };
     // else take old state
-    let merged = { ...oldState };
+    const merged = { ...oldState };
     // and replace only specified paths
-    for (const statePath of statesPaths) {
+    statesPaths.forEach(statePath => {
       const newValue = _get(newState, statePath);
       // remove value if it doesn't exist, overwrite otherwise
       if (typeof newValue === 'undefined') _unset(merged, statePath);
       else _set(merged, statePath, newValue);
-    }
+    });
     return merged;
   }
 
