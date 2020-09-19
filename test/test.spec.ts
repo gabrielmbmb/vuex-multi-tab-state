@@ -62,6 +62,32 @@ describe('vuex-multi-tab-state basic tests', () => {
     }
   });
 
+  it('should properly merge specified states when saving to local storage', () => {
+    const store = new Vuex.Store({
+      state: { bar: { random: 0, rainbow: 0 } },
+      mutations: {
+        incrementBarRandom(state) {
+          state.bar.random += 1;
+        },
+      },
+      plugins: [
+        createMultiTabState({ statesPaths: ['bar.random', 'bar.rainbow'] }),
+      ],
+    });
+
+    store.commit('incrementBarRandom');
+
+    const stateInLs: string | null = window.localStorage.getItem(
+      'vuex-multi-tab'
+    );
+
+    if (typeof stateInLs === 'string') {
+      const parsedStateInLs = JSON.parse(stateInLs);
+      expect(parsedStateInLs.state.bar.random).to.be.eq(1);
+      expect(parsedStateInLs.state.bar.rainbow).to.be.eq(0);
+    }
+  });
+
   it('should merge arrays correctly', () => {
     const store = new Vuex.Store({
       state: { random: ['bar', 'foo'] },
