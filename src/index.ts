@@ -18,30 +18,11 @@ export default function(options?: Options) {
     statesPaths = options.statesPaths ? options.statesPaths : statesPaths;
   }
 
-  function filterStates(
-    paths: string[],
-    state: { [key: string]: any }
-  ): { [key: string]: any } {
-    let result = {};
-    paths.forEach(path => {
-      const subPaths = path.split('.');
-      let object: { [key: string]: any } = {};
-      const branch = object;
-
-      const value = subPaths.reduce((current, subPath) => {
-        return current[subPath];
-      }, state);
-
-      for (let i = 0; i < subPaths.length - 1; i += 1) {
-        object[subPaths[i]] = {};
-        object = object[subPaths[i]];
-      }
-
-      object[subPaths[subPaths.length - 1]] = value;
-
-      result = { ...result, ...branch };
+  function filterStates(state: { [key: string]: any }): { [key: string]: any } {
+    const result = {};
+    statesPaths.forEach(statePath => {
+      _set(result, statePath, _get(state, statePath));
     });
-
     return result;
   }
 
@@ -80,7 +61,7 @@ export default function(options?: Options) {
 
       // Filter state
       if (statesPaths.length > 0) {
-        toSave = filterStates(statesPaths, state);
+        toSave = filterStates(state);
       }
 
       // Save state in local storage
