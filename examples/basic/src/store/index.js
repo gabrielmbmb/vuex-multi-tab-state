@@ -70,16 +70,31 @@ const animals = {
 export default new Vuex.Store({
   state: {
     counter: 0,
+    dictionary: {},
   },
   mutations: {
     increment(state) {
       state.counter += 1;
     },
+    addKeyValue(state, { key, value }) {
+      console.log(state);
+      state.dictionary[key] = value;
+    },
+    removeKey(state, key) {
+      const { [key]: removedKey, ...rest } = state.dictionary;
+      state.dictionary = rest;
+    },
+    nullify(state) {
+      state.dictionary = null;
+    },
+    newDictionary(state) {
+      state.dictionary = {};
+    },
   },
   modules: { fruits, animals },
   plugins: [
     createMultiTabState({
-      statesPaths: ['fruits.oranges', 'animals.penguins', 'counter'],
+      statesPaths: ['fruits.oranges', 'animals.penguins', 'counter', 'dictionary'],
     }),
   ],
 });
