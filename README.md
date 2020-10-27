@@ -59,7 +59,7 @@ export default ({ store }) => {
 };
 ```
 
-Note that the file name must have the following format `*.client.js`. The next step is to add this plugin to NuxtJS in `nuxt.config.js`:
+Note that the filename must have the following format `*.client.js`. The next step is to add this plugin to NuxtJS in `nuxt.config.js`:
 
 ```javascript
 // nuxt.config.js
@@ -70,7 +70,7 @@ export default {
 }
 ```
 
-If you didn't named the file following the format specified you can add this plugin this way:
+If you didn't name the file according to the specified format, you can add the plugin this way:
 
 ```javascript
 // nuxt.config.js
@@ -81,7 +81,8 @@ export default {
 }
 ```
 
-Both ways tell NuxtJS that the plugin should only be run on the client side (because the plugins uses window which is not available in server side).
+Both ways tell NuxtJS that the plugin should only be run client-side 
+(because the plugin uses `window`, not available server-side).
 
 ## API
 
@@ -111,7 +112,7 @@ Creates a new instance of the plugin with the given options. The possible option
 
 ## Test
 
-The test have been written with [mocha](https://github.com/mochajs/mocha) and [chai](https://github.com/chaijs/chai).
+The tests have been written with [mocha](https://github.com/mochajs/mocha) and [chai](https://github.com/chaijs/chai).
 
     npm install
     npm run test
