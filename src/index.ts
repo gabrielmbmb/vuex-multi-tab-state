@@ -1,6 +1,4 @@
-import _get from 'lodash.get';
-import _set from 'lodash.set';
-import _unset from 'lodash.unset';
+import { pick, set, remove } from 'dot-object';
 import Tab from './tab';
 
 export interface Options {
@@ -21,7 +19,7 @@ export default function(options?: Options) {
   function filterStates(state: { [key: string]: any }): { [key: string]: any } {
     const result = {};
     statesPaths.forEach(statePath => {
-      _set(result, statePath, _get(state, statePath));
+      set(statePath, pick(statePath, state), result);
     });
     return result;
   }
@@ -33,10 +31,10 @@ export default function(options?: Options) {
     const merged = { ...oldState };
     // and replace only specified paths
     statesPaths.forEach(statePath => {
-      const newValue = _get(newState, statePath);
+      const newValue = pick(statePath, newState);
       // remove value if it doesn't exist, overwrite otherwise
-      if (typeof newValue === 'undefined') _unset(merged, statePath);
-      else _set(merged, statePath, newValue);
+      if (typeof newValue === 'undefined') remove(statePath, merged);
+      else set(statePath, newValue, merged);
     });
     return merged;
   }
