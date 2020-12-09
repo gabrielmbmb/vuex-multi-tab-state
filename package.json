@@ -1,6 +1,6 @@
 {
   "name": "vuex-multi-tab-state",
-  "version": "1.0.15",
+  "version": "1.0.16",
   "description": "Share and synchronize status between multiple tabs with this plugin for Vuex.",
   "main": "./lib/index.js",
   "module": "./lib/index.esm.js",
