@@ -24,6 +24,20 @@
           <p>🍎: {{ $store.state.fruits.apples }}</p>
           <button @click="addFruit('apples')">Add apple</button>
         </div>
+
+        <!-- Wolfs -->
+        <div>
+          <p>🐺: {{ $store.state.animals.wolfs }}</p>
+          <button @click="addAnimal('wolfs')">Add wolf</button>
+        </div>
+
+        <h2>Penguins won't be synced in every tab</h2>
+
+        <!-- Penguins -->
+        <div>
+          <p>🐧: {{ $store.state.animals.penguins }}</p>
+          <button @click="addAnimal('penguins')">Add penguin</button>
+        </div>
       </div>
     </div>
   </div>
@@ -42,6 +56,9 @@ export default {
     },
     addFruit(name) {
       this.$store.commit('fruits/addFruit', name);
+    },
+    addAnimal(name) {
+      this.$store.commit('animals/addAnimal', name);
     }
   }
 };
