@@ -10,11 +10,20 @@
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
 ![demo](https://raw.githubusercontent.com/gabrielmbmb/vuex-multi-tab-state/master/.github/demo.gif?token=AHBT6NTORAZEFGKQRZ3IC4C6KHJA6)
 
-This Vuex plugin allows you to sync and share the status of your Vue application across multiple tabs or windows using the local storage.
+This Vuex plugin allows you to sync and share the status of your Vue application
+across multiple tabs or windows using the local storage.
 
 **This repository has a gitter chat where you can ask questions and propose new features:**
 
 [![Gitter](https://badges.gitter.im/vuex-multi-tab-state/community.svg)](https://gitter.im/vuex-multi-tab-state/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+
+### Vue 3 and Vuex 4 compatibility :warning:
+
+The plugin has been tested with Vue 3 and Vuex 4 and no problems have been found.
+There is an [issue](https://github.com/gabrielmbmb/vuex-multi-tab-state/issues/36)
+where you can find how the plugin has been used using the new Vue 3 Composition
+API. If you encounter a problem using the plugin with Vue 3 and Vuex 4, please
+post it there.
 
 ## Installation
 
@@ -48,7 +57,8 @@ You can check the example provided [here](https://github.com/gabrielmbmb/vuex-mu
 
 ## NuxtJS
 
-Integrating the plugin in NuxtJS requires a little more effort than in Vue. First of all, we have to create a file inside the `plugins` directory.
+Integrating the plugin in NuxtJS requires a little more effort than in Vue. First
+of all, we have to create a file inside the `plugins` directory.
 
 ```javascript
 // ~/plugins/multiTabState.client.js
@@ -59,7 +69,8 @@ export default ({ store }) => {
 };
 ```
 
-Note that the filename must have the following format `*.client.js`. The next step is to add this plugin to NuxtJS in `nuxt.config.js`:
+Note that the filename must have the following format `*.client.js`. The next
+step is to add this plugin to NuxtJS in `nuxt.config.js`:
 
 ```javascript
 // nuxt.config.js
@@ -70,7 +81,8 @@ export default {
 }
 ```
 
-If you didn't name the file according to the specified format, you can add the plugin this way:
+If you didn't name the file according to the specified format, you can add the
+plugin this way:
 
 ```javascript
 // nuxt.config.js
@@ -88,9 +100,12 @@ Both ways tell NuxtJS that the plugin should only be run client-side
 
 ### `createMultiTabState({options})`
 
-Creates a new instance of the plugin with the given options. The possible options are as follows:
+Creates a new instance of the plugin with the given options. The possible options
+are as follows:
 
-- `statesPaths Array<String>`: contains the name of the states to be synchronized with dot notation. If the param is not provided, the whole state of your app will be sync. Defaults to `[]`.
+- `statesPaths Array<String>`: contains the name of the states to be synchronized
+with dot notation. If the param is not provided, the whole state of your app will
+be sync. Defaults to `[]`.
 
   > Example: Only the oranges will be synchronized.
 
@@ -108,7 +123,8 @@ Creates a new instance of the plugin with the given options. The possible option
   });
   ```
 
-- `key <String>`: key of the local storage in which the state will be stored. Defaults to `'vuex-multi-tab'`.
+- `key <String>`: key of the local storage in which the state will be stored.
+Defaults to `'vuex-multi-tab'`.
 
 ## Test
 
@@ -121,7 +137,8 @@ The tests have been written with [mocha](https://github.com/mochajs/mocha) and [
 
 ![npm collaborators](https://img.shields.io/npm/collaborators/vuex-multi-tab-state)
 
-If you feel that something can be improved, go on, create a pull request! Please follow the programming style and document your changes correctly.
+If you feel that something can be improved, go on, create a pull request! Please
+follow the programming style and document your changes correctly.
 
 ## License
 
