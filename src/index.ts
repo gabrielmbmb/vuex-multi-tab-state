@@ -4,21 +4,27 @@ import Tab from './tab';
 export interface Options {
   statesPaths?: string[];
   key?: string;
+  onBeforeReplace?(state: any): any;
+  onBeforeSave?(state: any): any;
 }
 
-export default function(options?: Options) {
+export default function (options?: Options) {
   const tab = new Tab(window);
   let key: string = 'vuex-multi-tab';
   let statesPaths: string[] = [];
+  let onBeforeReplace = (state: any) => state;
+  let onBeforeSave = (state: any) => state;
 
   if (options) {
     key = options.key ? options.key : key;
     statesPaths = options.statesPaths ? options.statesPaths : statesPaths;
+    onBeforeReplace = options.onBeforeReplace || onBeforeReplace;
+    onBeforeSave = options.onBeforeSave || onBeforeSave;
   }
 
   function filterStates(state: { [key: string]: any }): { [key: string]: any } {
     const result = {};
-    statesPaths.forEach(statePath => {
+    statesPaths.forEach((statePath) => {
       set(statePath, pick(statePath, state), result);
     });
     return result;
@@ -43,15 +49,23 @@ export default function(options?: Options) {
     throw new Error('Local storage is not available!');
   }
 
+  function replaceState(store: any, state: object) {
+    const adjustedState = onBeforeReplace(state);
+
+    if (adjustedState) {
+      store.replaceState(mergeState(store.state, adjustedState));
+    }
+  }
+
   return (store: any) => {
     // First time, fetch state from local storage
     tab.fetchState(key, (state: object) => {
-      store.replaceState(mergeState(store.state, state));
+      replaceState(store, state);
     });
 
     // Add event listener to the state saved in local storage
     tab.addEventListener(key, (state: object) => {
-      store.replaceState(mergeState(store.state, state));
+      replaceState(store, state);
     });
 
     store.subscribe((mutation: MutationEvent, state: object) => {
@@ -62,8 +76,12 @@ export default function(options?: Options) {
         toSave = filterStates(state);
       }
 
+      toSave = onBeforeSave(toSave);
+
       // Save state in local storage
-      tab.saveState(key, toSave);
+      if (toSave) {
+        tab.saveState(key, toSave);
+      }
     });
   };
 }
