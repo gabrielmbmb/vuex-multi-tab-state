@@ -33,6 +33,56 @@ describe('vuex-multi-tab-state basic tests', () => {
     expect(spy).to.have.been.called.with(testState.state);
   });
 
+  it('should fetch filtered nested modules state from local storage without no-state-mutation errors', () => {
+    const testState = {
+      id: 'randomIdHere',
+      state: {
+        random: 1,
+        modA: {
+          rainbow: [1, 2, 3],
+          some: {
+            value1: 3,
+            value2: 4,
+          },
+        },
+      },
+    };
+    window.localStorage.setItem('vuex-multi-tab', JSON.stringify(testState));
+
+    const store = new Vuex.Store({
+      strict: true,
+      state: { random: 0 },
+      modules: {
+        modA: {
+          //namespaced: true,
+          state: {
+            rainbow: [],
+            some: {
+              value1: 0,
+              value2: 0,
+            },
+          },
+        },
+      },
+    });
+
+    const plugin = createMultiTabState({
+      statesPaths: ['random', 'modA.rainbow', 'modA.some.value1'],
+    });
+
+    plugin(store);
+    expect(store.state).to.be.eql({
+      random: 1,
+      modA: {
+        rainbow: [1, 2, 3],
+        some: {
+          value1: 3,
+          value2: 0, // not set during read-from-storage
+        },
+      },
+    });
+  });
+
   it('should save only the specified states in local storage', () => {
     const store = new Vuex.Store({
       state: { bar: { random: 0, rainbow: 0 }, foo: 0 },
