@@ -24,13 +24,31 @@ export default function(options?: Options) {
     return result;
   }
 
-  function mergeState(oldState: object, newState: object) {
+  /**
+   * simple object deep clone method
+   * @param obj
+   */
+  function cloneObj(obj: any): any {
+    if (Array.isArray(obj)) {
+      return obj.map((val) => cloneObj(val));
+    } else if (typeof obj === 'object') {
+      return Object.keys(obj).reduce((r: any, key) => {
+        r[key] = cloneObj(obj[key]);
+        return r;
+      }, {});
+    }
+    return obj;
+  }
+
+  function mergeState(oldState: any, newState: object) {
     // if whole state is to be replaced then do just that
     if (statesPaths.length === 0) return { ...newState };
-    // else take old state
-    const merged = { ...oldState };
+
+    // else clone old state
+    const merged: any = cloneObj(oldState);
+
     // and replace only specified paths
-    statesPaths.forEach(statePath => {
+    statesPaths.forEach((statePath) => {
       const newValue = pick(statePath, newState);
       // remove value if it doesn't exist, overwrite otherwise
       if (typeof newValue === 'undefined') remove(statePath, merged);
