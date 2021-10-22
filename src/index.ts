@@ -6,7 +6,7 @@ export interface Options {
   key?: string;
 }
 
-export default function(options?: Options) {
+export default function (options?: Options) {
   const tab = new Tab(window);
   let key: string = 'vuex-multi-tab';
   let statesPaths: string[] = [];
@@ -18,7 +18,7 @@ export default function(options?: Options) {
 
   function filterStates(state: { [key: string]: any }): { [key: string]: any } {
     const result = {};
-    statesPaths.forEach(statePath => {
+    statesPaths.forEach((statePath) => {
       set(statePath, pick(statePath, state), result);
     });
     return result;
@@ -31,7 +31,7 @@ export default function(options?: Options) {
   function cloneObj(obj: any): any {
     if (Array.isArray(obj)) {
       return obj.map((val) => cloneObj(val));
-    } else if (typeof obj === 'object') {
+    } else if (typeof obj === 'object' && obj !== null) {
       return Object.keys(obj).reduce((r: any, key) => {
         r[key] = cloneObj(obj[key]);
         return r;
