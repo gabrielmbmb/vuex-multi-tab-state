@@ -123,9 +123,33 @@ be sync. Defaults to `[]`.
   });
   ```
 
-- `key <String>`: key of the local storage in which the state will be stored.
+- `key? <String>`: key of the local storage in which the state will be stored.
 Defaults to `'vuex-multi-tab'`.
+- `onBeforeReplace? <Function>`: hook function that receives the state and allows to modify it before replacing it. The function can return either a modified state or a `falsy` value (which means that no modifications has been done inside the hook).
+- `onBeforeSave? <Function>`: hook function that receives the state and allows to modify it before saving it in local storage. The function can return either a modified state or a `falsy` value (which means that no modifications has been done inside the hook).
 
+  ```javascript
+  export default new Vuex.Store({
+    state: {
+      fruits: {
+        oranges: 0,
+        apples: 0,
+      },
+    },
+    plugins: [createMultiTabState({
+      statesPaths: ['fruits.oranges'],
+      onBeforeSave: (state) => {
+        // Modify state here
+        return state;
+      },
+      onBeforeReplace: (state) => {
+        // Modify state here
+        return state;
+      }
+    })],
+  });
+  ```
+  
 ## Test
 
 The tests have been written with [mocha](https://github.com/mochajs/mocha) and [chai](https://github.com/chaijs/chai).
