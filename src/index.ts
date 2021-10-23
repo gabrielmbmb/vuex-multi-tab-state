@@ -8,7 +8,7 @@ export interface Options {
   onBeforeSave?(state: any): any;
 }
 
-export default function (options?: Options) {
+export default function(options?: Options) {
   const tab = new Tab(window);
   let key: string = 'vuex-multi-tab';
   let statesPaths: string[] = [];
@@ -24,7 +24,7 @@ export default function (options?: Options) {
 
   function filterStates(state: { [key: string]: any }): { [key: string]: any } {
     const result = {};
-    statesPaths.forEach((statePath) => {
+    statesPaths.forEach(statePath => {
       set(statePath, pick(statePath, state), result);
     });
     return result;
@@ -36,10 +36,11 @@ export default function (options?: Options) {
    */
   function cloneObj(obj: any): any {
     if (Array.isArray(obj)) {
-      return obj.map((val) => cloneObj(val));
-    } else if (typeof obj === 'object' && obj !== null) {
-      return Object.keys(obj).reduce((r: any, key) => {
-        r[key] = cloneObj(obj[key]);
+      return obj.map(val => cloneObj(val));
+    }
+    if (typeof obj === 'object' && obj !== null) {
+      return Object.keys(obj).reduce((r: any, objKey) => {
+        r[objKey] = cloneObj(obj[objKey]);
         return r;
       }, {});
     }
@@ -54,7 +55,7 @@ export default function (options?: Options) {
     const merged: any = cloneObj(oldState);
 
     // and replace only specified paths
-    statesPaths.forEach((statePath) => {
+    statesPaths.forEach(statePath => {
       const newValue = pick(statePath, newState);
       // remove value if it doesn't exist, overwrite otherwise
       if (typeof newValue === 'undefined') remove(statePath, merged);
