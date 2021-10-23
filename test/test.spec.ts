@@ -234,6 +234,87 @@ describe('vuex-multi-tab-state basic tests', () => {
     expect(warnSpy).to.have.been.called;
   });
 
+  it('should work with onBeforeSave option set', () => {
+    const store = new Vuex.Store({
+      strict: true,
+      state: {
+        counter: 1,
+      },
+      mutations: {
+        count(state) {
+          state.counter += 1;
+        },
+      },
+      plugins: [
+        createMultiTabState({
+          onBeforeSave(state) {
+            if (state.counter > 2) return;
+
+            return {
+              ...state,
+              __time: Date.now(),
+            };
+          },
+        }),
+      ],
+    });
+
+    store.commit('count');
+    store.commit('count');
+    store.commit('count');
+
+    const stateInLs: string | null =
+      window.localStorage.getItem('vuex-multi-tab');
+
+    expect(typeof stateInLs).to.be.eq('string');
+    if (typeof stateInLs === 'string') {
+      const parsedStateInLs = JSON.parse(stateInLs);
+
+      expect(parsedStateInLs.state.__time).to.be.lte(Date.now());
+      expect(parsedStateInLs.state.counter).to.be.eq(2);
+    }
+  });
+
+  it('should work with onBeforeReplace option set', () => {
+    const testState = { id: 'randomIdHere', state: { random: 6 } };
+    window.localStorage.setItem('vuex-multi-tab', JSON.stringify(testState));
+
+    const store = new Vuex.Store({
+      strict: true,
+      state: { random: 0 },
+    });
+    const plugin = createMultiTabState({
+      onBeforeReplace(state) {
+        return { random: 12 };
+      },
+    });
+    const spy = chai.spy.on(store, 'replaceState');
+
+    plugin(store);
+    expect(spy).to.have.been.called.with({ random: 12 });
+    expect(store.state.random).to.be.eq(12);
+  });
+
+  it('should work with onBeforeReplace option returning falsy value', () => {
+    const testState = { id: 'randomIdHere', state: { random: 6 } };
+    window.localStorage.setItem('vuex-multi-tab', JSON.stringify(testState));
+
+    const store = new Vuex.Store({
+      strict: true,
+      state: { random: 0 },
+    });
+    const plugin = createMultiTabState({
+      onBeforeReplace(state) {
+        return;
+      },
+    });
+    const spy = chai.spy.on(store, 'replaceState');
+
+    plugin(store);
+    expect(spy).to.not.have.been.called;
+    expect(store.state.random).to.be.eq(0);
+  });
+
   it('should not fetch state from local storage if event newValue property is undefined', () => {
     const testState = { id: 'randomIdHere', state: { random: 6 } };
     window.localStorage.setItem('vuex-multi-tab', JSON.stringify(testState));
