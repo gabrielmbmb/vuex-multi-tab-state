@@ -18,7 +18,7 @@
     "prepublishOnly": "npm test && npm run lint",
     "preversion": "npm run lint",
     "test": "nyc ./node_modules/mocha/bin/mocha",
-    "coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov",
+    "coverage": "nyc report --reporter=text-lcov > coverage.lcov",
     "lint": "tsc --noEmit && eslint 'src/**/*' --quiet --fix",
     "format": "prettier --write \"src/**/*\""
   },
