@@ -1,6 +1,6 @@
 # vuex-multi-tab-state
 
-[![Build Status](https://travis-ci.com/gabrielmbmb/vuex-multi-tab-state.svg?branch=master)](https://travis-ci.com/gabrielmbmb/vuex-multi-tab-state)
+![Tests](https://github.com/gabrielmbmb/vuex-multi-tab-state/actions/workflows/tests.yaml/badge.svg)
 [![npm](https://img.shields.io/npm/v/vuex-multi-tab-state)](https://www.npmjs.com/package/vuex-multi-tab-state)
 [![codecov](https://codecov.io/gh/gabrielmbmb/vuex-multi-tab-state/branch/master/graph/badge.svg)](https://codecov.io/gh/gabrielmbmb/vuex-multi-tab-state)
 [![codebeat badge](https://codebeat.co/badges/9c5328f7-a70e-412a-a68a-ce67668bfc0d)](https://codebeat.co/projects/github-com-gabrielmbmb-vuex-multi-tab-state-master)
