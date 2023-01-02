@@ -54,7 +54,7 @@
     "eslint-plugin-prettier": "^3.1.2",
     "jsdom": "^16.1.0",
     "jsdom-global": "^3.0.2",
-    "microbundle": "^0.12.4",
+    "microbundle": "^0.15.1",
     "mocha": "^7.0.1",
     "mock-local-storage": "^1.1.11",
     "nyc": "^15.0.0",
